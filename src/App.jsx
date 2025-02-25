@@ -9,6 +9,7 @@ import { Link, NavLink, Route, Routes } from "react-router-dom";
 import GetAllProducts from "./Components/GetAllProducts";
 import Detail from "./Components/ProductDetail";
 import Cart from "./Components/Cart";
+import Counter from "./Components/Count";
 
 export default function App() {
   //const [products,setProducts]=useState([])
@@ -50,22 +51,35 @@ export default function App() {
   // if(loading){
   //   return <Spinner/>
   // }
+
   //add to cart
-  /*const[cart,setCart]=useState([])
-  const addToCart=(id,sku)=>{}
-  const itemInCart=items.find((i)=>i.sku===sku)
-  if(items)*/
+  const[cart,setCart]=useState([])
+  const addToCart=(id,sku)=>{
+    setCart((items)=>{
+      const itemInCart=items.find((i)=>i.sku===sku)
+    if(itemInCart){
+      return items.map((i)=>i.sku===sku ?{...i,quantity:i.quantity+1}:i)
+    }
+    else{
+      return [...items,{id,sku,quantity:1}]
+    }
+    })
+  }
+useEffect( ()=>{
+console.log(cart)
+},[cart] )
+
   return (
     <>
       <div className="content">
         <Header />
-        
+        <Counter/>
         <main>
         <Routes>
           <Route path="/" element={<h1>Welcome to our store</h1>}></Route>
           <Route path="/products/:category" element={<GetAllProducts></GetAllProducts>} ></Route>
-          <Route path="/products/:category/:id" element={<Detail/>}></Route>
-          <Route path="/cart" element={<Cart/>}></Route>
+          <Route path="/products/:category/:id" element={<Detail addToCart={addToCart}/>}></Route>
+          <Route path="/cart" element={<Cart   cart={cart}/>}  ></Route>
           </Routes>
          
       <Footer />
