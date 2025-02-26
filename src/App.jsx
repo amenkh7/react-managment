@@ -10,6 +10,7 @@ import GetAllProducts from "./Components/GetAllProducts";
 import Detail from "./Components/ProductDetail";
 import Cart from "./Components/Cart";
 import Counter from "./Components/Count";
+import { ChangeName, ShowName, UserProvider } from "./Components/contextex";
 
 export default function App() {
   //const [products,setProducts]=useState([])
@@ -74,6 +75,10 @@ console.log(cart)
       <div className="content">
         <Header />
         <Counter/>
+        <UserProvider>
+          <ShowName/>
+          <ChangeName/>
+        </UserProvider>
         <main>
         <Routes>
           <Route path="/" element={<h1>Welcome to our store</h1>}></Route>

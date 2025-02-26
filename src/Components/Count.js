@@ -15,10 +15,9 @@ export default function Counter (){
     const [state,dispatch]= useReducer(reducer,initialState)
     return(
         <div>
-            <p>count: {state.count}</p>
+            <p>{state.count}</p>
             <button onClick={()=>dispatch({type:"increment"})}>+</button>
             <button onClick={()=>dispatch({type:"decrement"})}>-</button>
-
         </div>
     )
 }
